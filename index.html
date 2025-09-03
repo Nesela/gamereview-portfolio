@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>포트폴리오</title>
   <style>
-    body {
-      background-color: #121212;
+  body {
+    background-color: #121212;
     color: #fff;
     }
     .title{
@@ -14,24 +14,30 @@
 }
 
 section{
-    margin-left: 50px;
+  margin-left: 50px;
 }
 
 #search>input{
-    width: 500px;
-     height: 30px;
+  width: 500px;
+  height: 30px;
 }
 #mt{
-    display: block;
-position: relative;
+  display: block;
+  position: relative;
 }
-#search{
-position: absolute;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-    margin: 50px:
+#search {
+  position: fixed;        /* 화면 전체 기준으로 위치 고정 */
+  top: 25px;              /* 상단에서 10px 내려오기 */
+  left: 50%;              /* 화면 가로의 50% */
+  transform: translateX(-50%); /* 가운데 정렬 */
+  z-index: 1000;          /* 다른 요소 위에 표시 */
 }
+
+#search > input {
+  width: 500px;
+  height: 30px;
+}
+
 
 
 #home{	
@@ -40,7 +46,6 @@ position: absolute;
 }
 .panel{
     display: block;
-    height: px;
     border-bottom: 1px solid blue;
     border-top: 1px solid blue;
     text-align: center;
@@ -65,19 +70,20 @@ position: absolute;
 .post_grid{
     display: grid;
     grid-template-columns: repeat(3, 2fr);
-    gap: 20px; 20px;
+    gap: 20px;
 }
 
 	@media (max-width:1114px){
 	#home{
 		visibility: hidden;
+  }
 }
   </style>
 </head>
 
 <body>
 <div id="mt">
-    <a id="home">
+    <a id="home" href="index.html">
 	<h1>🎮 겜돌이의 게임리뷰</h1>
     </a>
     <div id="search">
@@ -108,7 +114,7 @@ position: absolute;
         <div><img src="C:\none"> <p>Factorio</p></div>
         <div><img src="C:\none"> <p>Sephiria</p></div>
     </div>
-<section>
+  </section>
 
 </body>
 </html>
