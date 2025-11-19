@@ -1,0 +1,32 @@
+ .panel {
+    position: relative;
+    display: block;
+    border-bottom: 1px solid blue;
+    border-top: 1px solid blue;
+    text-align: center;
+    padding: 10px 0;
+    margin: 10px 0px 20px;
+ }
+
+ .subpanel {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    display: none;
+    text-align: center;
+ }
+
+ .panel>span {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    width: 100px;
+    margin: 0px 5px 0px;
+ }
+
+ .subpanel a {
+    display: block;
+    text-align: center;
+}

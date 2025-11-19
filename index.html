@@ -3,32 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="post.css">
-    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="css/post.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/panel.css">
     <title>포트폴리오</title>
     <style>
         body {
-            background-color: #121212;
+            background-color: #747474;
             color: #fff;
-        }
-
-        .panel {
-            display: block;
-            border-bottom: 1px solid blue;
-            border-top: 1px solid blue;
-            text-align: center;
-            padding: 10px 0;
-            margin: 10px 0px 20px;
-        }
-
-        .subpanel{
-            position: absolute;
-        }
-
-        .panel>span {
-            font-size: 20px;
-            width: 100px;
-            margin: 0px 5px 0px;
         }
 
         #mt {
@@ -39,6 +21,7 @@
         #home {
             width: 300px;
             text-decoration: none;
+            color: white !important;
         }
 
         @media (max-width:1114px) {
@@ -62,7 +45,13 @@
     </div>
 
     <div class="panel">
-        <span data-subpanel="mm1">RPG</span>
+        <span data-subpanel="mm1">RPG
+            <div id="mm1" class="subpanel">
+        <a>테스트 1</a>
+        <a>테스트 2</a>
+        <a>테스트 3</a>
+    </div>
+        </span>
         <span data-subpanel="mm2">액션</span>
         <span data-subpanel="mm3">인디</span>
         <span data-subpanel="mm4">시뮬레이션</span>
@@ -71,13 +60,33 @@
         <span data-subpanel="mm7">게시판</span>
     </div>
 
-    <div id="mm1" class="subpanel">
+    
+    <div id="mm2" class="subpanel">
         <a>테스트 1</a>
         <a>테스트 2</a>
         <a>테스트 3</a>
     </div>
-
-    <div id="mm2" class="subpanel">
+    <div id="mm3" class="subpanel">
+        <a>테스트 1</a>
+        <a>테스트 2</a>
+        <a>테스트 3</a>
+    </div>
+    <div id="mm4" class="subpanel">
+        <a>테스트 1</a>
+        <a>테스트 2</a>
+        <a>테스트 3</a>
+    </div>
+    <div id="mm5" class="subpanel">
+        <a>테스트 1</a>
+        <a>테스트 2</a>
+        <a>테스트 3</a>
+    </div>
+    <div id="mm6" class="subpanel">
+        <a>테스트 1</a>
+        <a>테스트 2</a>
+        <a>테스트 3</a>
+    </div>
+    <div id="mm7" class="subpanel">
         <a>테스트 1</a>
         <a>테스트 2</a>
         <a>테스트 3</a>
@@ -108,21 +117,7 @@
             </div>
         </div>
     </section>
-
-    <script>
-        document.querySelectorAll('[data-subpanel]').forEach(menu => {
-            menu.addEventListener('mouseenter', function () {
-                const targetID = this.getAttribute('data-subpanel');
-                document.getElementById(targetID).style.display = 'block';
-            });
-
-            menu.addEventListener('mouseleave', function () {
-                const targetID = this.getAttribute('data-subpanel');
-                document.getElementById(targetID).style.display = 'none';
-            });
-        });
-
-    </script>
+<script src="js/panel.js"></script>
 </body>
 
 </html>
