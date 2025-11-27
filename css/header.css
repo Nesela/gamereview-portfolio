@@ -1,0 +1,48 @@
+#mt {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 10px 0;
+}
+
+#search {
+    display: flex;
+    justify-content: center;
+}
+
+#search > input {
+    width: 500px;
+    height: 30px;
+}
+
+form{
+    justify-self: end;
+    margin-right: 30px;
+}
+
+#userHeader > button{
+    padding: 5px 15px;
+    height: 30px;
+}
+
+.modal{
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-contest{
+    background-color: white;
+    color:black;
+    margin: 15% auto;
+    padding: 20px;
+    width: 500px;
+    height: 300px;
+}

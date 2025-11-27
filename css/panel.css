@@ -29,4 +29,5 @@
  .subpanel a {
     display: block;
     text-align: center;
+    white-space: nowrap;
 }

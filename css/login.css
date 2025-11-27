@@ -1,0 +1,39 @@
+#userHeader>button {
+    padding: 5px 15px;
+    height: 30px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    display: block;
+    background-color: white;
+    color: black;
+    margin: 15% auto;
+    padding: 20px;
+    width: 500px;
+    height: 300px;
+}
+
+#loginContent {
+    display: block;
+}
+#loginContent > *{
+    display: block;
+    margin: 10px 15px;
+}
+
+
+#regContent > *{
+    display: block;
+    margin: 10px 15px;
+}
