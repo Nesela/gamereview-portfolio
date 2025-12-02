@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/post.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="stylesheet" href="css/login.css">
+    <title>포트폴리오</title>
+    <style>
+        body {
+            background-color: #747474;
+            color: #fff;
+        }
+
+        #home {
+            flex: 1;
+            width: 300px;
+            text-decoration: none;
+            color: white !important;
+        }
+
+        @media (max-width:1114px) {
+            #home {
+                visibility: hidden;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 최상단 헤더 라인 -->
+    <div id="mt">
+        <a id="home" href="index.html">
+            <h1>🎮 겜돌이의 게임리뷰</h1>
+        </a>
+        <!-- 검색창 (뼈대) -->
+        <div id="search">
+            <input type="text" placeholder="search">
+        </div>
+        <!-- 로그인 (ing) -->
+        <div>
+            <form id="userHeader">
+                <button id="login-button" type="button" >Login</button>
+                <button id="register-button" type="button" >Register</button>
+                <button id="logout-button" type="button" style="display: none;">Logout</button>
+            </form>
+
+            <div id="modalPopup" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div id="loginContent">
+                        <h2>Login</h2>
+                        <input type="text" id="user" placeholder="ID">
+                        <input type="password" id="pw" placeholder="Password">
+                        <button id="userLogin">로그인</button>
+                    </div>
+
+                    <div id="regContent" style="display: none;">
+                        <h2>Register</h2>
+                        <input type="text" id="Newuser" placeholder="ID">
+                        <input type="password" id="Newpw" placeholder="Password">
+                        <input type="password" id="confirmPw" placeholder="ConfirmPassword">
+                        <button id="userReg">회원가입</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 탑 메뉴 -->
+    <div class="panel">
+        <span data-subpanel="mm1">RPG
+            <div id="mm1" class="subpanel">
+                <a>테스트 1</a>
+                <a>테스트 2</a>
+                <a>테스트 3</a>
+            </div>
+        </span>
+        <span data-subpanel="mm2">액션
+            <div id="mm2" class="subpanel">
+                <a>테스트 1</a>
+                <a>테스트 2</a>
+                <a>테스트 3</a>
+            </div>
+        </span>
+        <span data-subpanel="mm3">인디
+            <div id="mm3" class="subpanel">
+                <a>테스트 1</a>
+                <a>테스트 2</a>
+                <a>테스트 3</a>
+            </div>
+        </span>
+        <span data-subpanel="mm4">시뮬레이션
+            <div id="mm4" class="subpanel">
+                <a>테스트 1</a>
+                <a>테스트 2</a>
+                <a>테스트 3</a>
+            </div>
+        </span>
+        <span data-subpanel="mm5">자동화
+            <div id="mm5" class="subpanel">
+                <a>테스트 1</a>
+                <a>테스트 2</a>
+                <a>테스트 3</a>
+            </div>
+        </span>
+        <span data-subpanel="mm6">로그라이크
+            <div id="mm6" class="subpanel">
+                <a>테스트 1</a>
+                <a>테스트 2</a>
+                <a>테스트 3</a>
+            </div>
+        </span>
+        <span data-subpanel="mm7">게시판
+            <div id="mm7" class="subpanel">
+                <a>테스트 1</a>
+                <a>테스트 2</a>
+                <a>테스트 3</a>
+            </div>
+        </span>
+    </div>
+    <!-- 홈화면 게시글 -->
+    <section class="main_post">
+        <article id="new_post">
+            New Post
+        </article>
+        <div class="post_grid">
+            <div><img src="#">
+                <p>Monster Hunter Wilds</p>
+            </div>
+            <div><img src="#">
+                <p>ELDEN RING NIGHTREIGN</p>
+            </div>
+            <div><img src="#">
+                <p>Satisfactory</p>
+            </div>
+            <div><img src="#">
+                <p>Monster Hunter: World</p>
+            </div>
+            <div><img src="#">
+                <p>Factorio</p>
+            </div>
+            <div><img src="#">
+                <p>Sephiria</p>
+            </div>
+        </div>
+    </section>
+    <script src="js/panel.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/register.js"></script>
+</body>
+
+</html>
