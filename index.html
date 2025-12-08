@@ -43,8 +43,8 @@
         <!-- 로그인 (ing) -->
         <div>
             <form id="userHeader">
-                <button id="login-button" type="button" >Login</button>
-                <button id="register-button" type="button" >Register</button>
+                <button id="login-button" type="button">Login</button>
+                <button id="register-button" type="button">Register</button>
                 <button id="logout-button" type="button" style="display: none;">Logout</button>
             </form>
 
@@ -74,44 +74,44 @@
     <div class="panel">
         <span data-subpanel="mm1">RPG
             <div id="mm1" class="subpanel">
-<a data-genre="role-playing-games-rpg" data-ordering="-released">최신순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-added">인기순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-rating">평점순</a>
+                <a data-genre="role-playing-games-rpg" data-ordering="-released">최신순</a>
+                <a data-genre="role-playing-games-rpg" data-ordering="-added">인기순</a>
+                <a data-genre="role-playing-games-rpg" data-ordering="-rating">평점순</a>
             </div>
         </span>
         <span data-subpanel="mm2">액션
             <div id="mm2" class="subpanel">
-<a data-genre="role-playing-games-rpg" data-ordering="-released">최신순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-added">인기순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-rating">평점순</a>
+                <a data-genre="action" data-ordering="-released">최신순</a>
+                <a data-genre="action" data-ordering="-added">인기순</a>
+                <a data-genre="action" data-ordering="-rating">평점순</a>
             </div>
         </span>
         <span data-subpanel="mm3">인디
             <div id="mm3" class="subpanel">
-<a data-genre="role-playing-games-rpg" data-ordering="-released">최신순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-added">인기순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-rating">평점순</a>
+                <a data-genre="indie" data-ordering="-released">최신순</a>
+                <a data-genre="indie" data-ordering="-added">인기순</a>
+                <a data-genre="indie" data-ordering="-rating">평점순</a>
             </div>
         </span>
         <span data-subpanel="mm4">시뮬레이션
             <div id="mm4" class="subpanel">
-<a data-genre="role-playing-games-rpg" data-ordering="-released">최신순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-added">인기순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-rating">평점순</a>
+                <a data-genre="simulation" data-ordering="-released">최신순</a>
+                <a data-genre="simulation" data-ordering="-added">인기순</a>
+                <a data-genre="simulation" data-ordering="-rating">평점순</a>
             </div>
         </span>
-        <span data-subpanel="mm5">공장
+        <span data-subpanel="mm5">전략
             <div id="mm5" class="subpanel">
-<a data-genre="role-playing-games-rpg" data-ordering="-released">최신순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-added">인기순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-rating">평점순</a>
+                <a data-genre="strategy" data-ordering="-released">최신순</a>
+                <a data-genre="strategy" data-ordering="-added">인기순</a>
+                <a data-genre="strategy" data-ordering="-rating">평점순</a>
             </div>
         </span>
-        <span data-subpanel="mm6">로그라이크
+        <span data-subpanel="mm6">FPS
             <div id="mm6" class="subpanel">
-<a data-genre="role-playing-games-rpg" data-ordering="-released">최신순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-added">인기순</a>
-<a data-genre="role-playing-games-rpg" data-ordering="-rating">평점순</a>
+                <a data-genre="shooter" data-ordering="-released">최신순</a>
+                <a data-genre="shooter" data-ordering="-added">인기순</a>
+                <a data-genre="shooter" data-ordering="-rating">평점순</a>
             </div>
         </span>
         <span data-subpanel="mm7">게시판
@@ -127,9 +127,14 @@
         <article id="new_post">
             추천 게임리뷰
         </article>
-        <div class="post_grid" id="game-list">
+        <div class="dayck" style="display:none">
+            <input id="firstDay" class="daych" type="date">
+            <input id="lastDay" class="daych" type="date">
+            <button id="dayBt">검색</button>
         </div>
     </section>
+    <div class="post_grid" id="game-list">
+    </div>
     <script src="js/panel.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/login.js"></script>
