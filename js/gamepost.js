@@ -8,7 +8,7 @@ const baseDate = (date) => {
 
 const today = new Date();
 const oneYearAgo = new Date();
-oneYearAgo.setFullYear(today.getFullYear() -1);
+oneYearAgo.setFullYear(today.getFullYear() - 1);
 const startDay = document.querySelector("#firstDay");
 const endDay = document.querySelector("#lastDay");
 const firstDay = baseDate(oneYearAgo);
@@ -16,9 +16,13 @@ const lastDay = baseDate(today);
 startDay.value = firstDay;
 endDay.value = lastDay;
 
-const dayChange = document.querySelector(".daych")
-const post = document.querySelector("#new_post")
-const daybt = document.querySelector(".dayck")
+let currentGenre = '';
+let currentOrdering = '';
+
+const usdaybt = document.querySelector("#dayBt");
+const dayChange = document.querySelector(".daych");
+const post = document.querySelector("#new_post");
+const daybt = document.querySelector(".dayck");
 const mygameList = document.querySelector("#game-list");
 const API_KEY = "4db8554f6c524aacb7f4bd32f85783f8";
 const BASE_URL = "https://api.rawg.io/api/games";
@@ -38,7 +42,7 @@ const myGame = myGameSlugs.map(slug =>
 );
 
 Promise.all(myGame).then(games => {
-    
+    mygameList.className = "post_grid";
     mygameList.innerHTML = '';
     games.forEach(game => {
         mygameList.innerHTML += `
@@ -62,9 +66,11 @@ const loadGame = (genre, ordering, firstDay, lastDay) => {
     // }
     // url += `&ordering=${ordering}`;
 
-    fetch(`${BASE_URL}?key=${API_KEY}&genres=${genre}&ordering=${ordering}&page_size=50&dates=${firstDay},${lastDay}`)
+    fetch(`${BASE_URL}?key=${API_KEY}&genres=${genre}&ordering=${ordering}
+        &page_size=50&dates=${firstDay},${lastDay}`)
         .then(res => res.json())
         .then(data => {
+            mygameList.className = "post_list";
             mygameList.innerHTML = ''
             data.results
                 .filter(game => game.background_image) //이미지 있는거만 필터
@@ -73,18 +79,16 @@ const loadGame = (genre, ordering, firstDay, lastDay) => {
                     mygameList.innerHTML += `
         <div>
             <img src="${game.background_image}">
-            <p>${game.name}</p>
-            <p>${game.genres.slice(0, 2).map(g => g.name).join(', ')}</p>
+            <div class="post_text";>
+            <span>${game.name}</span>
+            <span>${game.genres.slice(0, 2).map(g => g.name).join(', ')}</span>
+            <span>평점: ${game.rating}</span>
+            </div>
         </div>`;
                 });
         });
 };
-// 유저 데이 입력값 불러오기
-dayChange.addEventListener("click", () =>{
-    const userStartDay = startDay.value
-    const userEndDay = endDay.value
-    loadGame(c)
-});
+
 //클릭시 변경될 화면
 document.querySelectorAll(".subpanel a").forEach(a => {
     a.addEventListener("click", () => {
@@ -97,9 +101,19 @@ document.querySelectorAll(".subpanel a").forEach(a => {
         const currentStart = startDay?.value || firstDay;
         const currentEnd = endDay?.value || lastDay;
 
+        currentGenre = genre;
+        currentOrdering = ordering;
+
         post.innerHTML = mainText + " " + subpanel;
         loadGame(genre, ordering, currentStart, currentEnd);
         daybt.style.display = "inline";
     });
 });
 
+//변경된 날짜에 맞는 게임표시
+usdaybt.addEventListener("click", () => {
+    const userStartDay = startDay.value
+    const userEndDay = endDay.value
+
+    loadGame(currentGenre, currentOrdering, userStartDay, userEndDay);
+});

@@ -28,3 +28,25 @@
 .dayck{
     margin-left: auto;
 }
+
+.post_list{
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    background-color: rgba(139, 59, 59, 0.5);
+}
+
+.post_list div{
+    display: flex;
+    padding: 10px;
+    background-color: rgba(66, 23, 23, 0.5);
+}
+.post_list img{
+    width: 576px;
+    height: 324px;
+}
+
+.post_text{
+    flex-direction: column;
+}
+

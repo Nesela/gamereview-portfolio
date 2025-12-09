@@ -27,13 +27,14 @@
 #loginContent {
     display: block;
 }
-#loginContent > *{
+
+#loginContent>* {
     display: block;
     margin: 10px 15px;
 }
 
 
-#regContent > *{
+#regContent>* {
     display: block;
     margin: 10px 15px;
 }
