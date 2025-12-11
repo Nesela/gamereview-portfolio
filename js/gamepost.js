@@ -20,7 +20,6 @@ let currentGenre = '';
 let currentOrdering = '';
 
 const usdaybt = document.querySelector("#dayBt");
-const dayChange = document.querySelector(".daych");
 const post = document.querySelector("#new_post");
 const daybt = document.querySelector(".dayck");
 const mygameList = document.querySelector("#game-list");
@@ -78,14 +77,43 @@ const loadGame = (genre, ordering, firstDay, lastDay) => {
                 .forEach(game => {
                     mygameList.innerHTML += `
         <div>
-            <img src="${game.background_image}">
-            <div class="post_text";>
-            <span>${game.name}</span>
-            <span>${game.genres.slice(0, 2).map(g => g.name).join(', ')}</span>
-            <span>평점: ${game.rating}</span>
+        <div class="img-wrapper">
+        <button class="prevBt imgBt">‹</button>
+        <button class="nextBt imgBt">›</button>
+        ${game.short_screenshots.slice(0, 6).map(ss => `<img src="${ss.image}">`).join('')}
+        </div>
+            
+            <div class="post_text">
+            <span>이름 : ${game.name}</span>
+            <span>장르 : ${game.genres.slice(0, 2).map(g => g.name).join(', ')}</span>
+            <span>평점 : ${game.rating}</span>           
             </div>
         </div>`;
                 });
+            //모든게임의 wrapper를 불러오기
+            const gameWrapper = document.querySelectorAll("div > .img-wrapper");
+            gameWrapper.forEach((wrapper) => {
+                //img-wrapper 에서 개별적으로 불러오기
+                const imgBt = wrapper.querySelectorAll(".imgBt");
+                const gameimg = wrapper.querySelectorAll("img");
+                let gameImgIndex = 0;
+
+                gameimg.forEach((img, index) => {
+                    img.style.display = index === 0 ? "block" : "none";
+                })
+
+                imgBt.forEach((button) => {
+                    button.addEventListener("click", (ev) => {
+                        //현재 이미지 숨기기
+                        gameimg[gameImgIndex].style.display = "none";
+                        const imgChange = ev.target.className.includes("prevBt") ? -1 : 1;
+                        //인덱스 계산 (배열 양끝에서 순환)
+                        gameImgIndex = (gameImgIndex + imgChange + gameimg.length) % gameimg.length;
+                        gameimg[gameImgIndex].style.display = "block";
+                    })
+                })
+
+            });
         });
 };
 
@@ -117,3 +145,4 @@ usdaybt.addEventListener("click", () => {
 
     loadGame(currentGenre, currentOrdering, userStartDay, userEndDay);
 });
+
