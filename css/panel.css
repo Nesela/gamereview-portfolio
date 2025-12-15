@@ -8,7 +8,7 @@
     margin: 10px 0px 20px;
  }
 
- .subpanel {
+ .subpanel, .board {
     position: absolute;
     top: 100%;
     left: 50%;

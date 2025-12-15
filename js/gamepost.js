@@ -6,6 +6,7 @@ const baseDate = (date) => {
     return `${year}-${month}-${day}`;
 }
 
+//날짜
 const today = new Date();
 const oneYearAgo = new Date();
 oneYearAgo.setFullYear(today.getFullYear() - 1);
@@ -18,6 +19,8 @@ endDay.value = lastDay;
 
 let currentGenre = '';
 let currentOrdering = '';
+
+const search = document.querySelector("#main_search");
 
 const usdaybt = document.querySelector("#dayBt");
 const post = document.querySelector("#new_post");
@@ -53,20 +56,17 @@ Promise.all(myGame).then(games => {
     });
 });
 
-const loadGame = (genre, ordering, firstDay, lastDay) => {
-    //태그를 쓸일이없었따...
-    // let url = `${BASE_URL}?key=${API_KEY}`;
-    // const tagList = ['building', 'automation', 'resource-management', 'roguelike'];
 
-    // if (tagList.includes(genre)) {
-    //     url += `&tags=${genre}`;
-    // } else {
-    //     url += `&genres=${genre}`;
-    // }
-    // url += `&ordering=${ordering}`;
+const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', searchUser = '') => {
+    let url = `${BASE_URL}?key=${API_KEY}&page_size=50`;
 
-    fetch(`${BASE_URL}?key=${API_KEY}&genres=${genre}&ordering=${ordering}
-        &page_size=50&dates=${firstDay},${lastDay}`)
+    if (searchUser) {
+        url += `&search=${searchUser}`;
+    } else {
+        url += `&genres=${genre}&ordering=${ordering}&dates=${firstDay},${lastDay}`
+    }
+    console.log('요청 URL:', url);
+    fetch(url)
         .then(res => res.json())
         .then(data => {
             mygameList.className = "post_list";
@@ -127,13 +127,13 @@ document.querySelectorAll(".subpanel a").forEach(a => {
         const mainText = parentSpan ? parentSpan.firstChild.textContent.trim() : '';
         // input이 있으면 그 값, 없으면 기본 날짜 사용
         const currentStart = startDay?.value || firstDay;
-        const currentEnd = endDay?.value || lastDay;
+        const currentEnd = endDay?.value || firstDay;
 
         currentGenre = genre;
         currentOrdering = ordering;
-
         post.innerHTML = mainText + " " + subpanel;
-        loadGame(genre, ordering, currentStart, currentEnd);
+
+        loadGame(genre, ordering, currentStart, currentEnd, "");
         daybt.style.display = "inline";
     });
 });
@@ -143,6 +143,20 @@ usdaybt.addEventListener("click", () => {
     const userStartDay = startDay.value
     const userEndDay = endDay.value
 
-    loadGame(currentGenre, currentOrdering, userStartDay, userEndDay);
+    loadGame(currentGenre, currentOrdering, userStartDay, userEndDay, "");
 });
 
+
+//게임 검색
+search.addEventListener("keydown", (enter) => {
+    if (enter.key === "Enter") {
+        const searchUser = search.value.trim();
+
+        if (searchUser) {
+            post.innerHTML = `게임검색`;
+            loadGame("", "", "", "", searchUser);
+        } else {
+            alert("검색어를 입력해주세요")
+        }
+    }
+});
