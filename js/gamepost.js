@@ -76,7 +76,7 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
                 .slice(0, 20)  //20개까지 표기
                 .forEach(game => {
                     mygameList.innerHTML += `
-        <div>
+        <div class="gams_post">
         <div class="img-wrapper">
         <button class="prevBt imgBt">‹</button>
         <button class="nextBt imgBt">›</button>

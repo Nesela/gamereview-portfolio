@@ -36,10 +36,15 @@
     background-color: rgba(139, 59, 59, 0.5);
 }
 
-.post_list div {
+.gams_post {
+    display: flex;
+    
+    margin: 10px;
+}
+
+.post_text{
     display: flex;
     background-color: rgba(66, 23, 23, 0.5);
-    padding: 10px;
 }
 
 .img-wrapper {
@@ -47,6 +52,8 @@
     width: 576px;
     height: 324px;
     margin-right: 10px;
+    background-color: rgba(66, 23, 23, 0.5);
+    padding: 10px;
 }
 
 .img-wrapper>img {
@@ -79,7 +86,7 @@
 }
 
 .nextBt {
-    right: 10px;  
-    top: 50%;     
+    right: 10px;
+    top: 50%;
     transform: translateY(-50%);
 }
