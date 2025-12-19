@@ -18,18 +18,37 @@ const getUserPost = () => {
     return data ? JSON.parse(data) : [];
 }
 
+const mPost = (category) => {
+    const mainPosts = getUserPost();
+
+    mainPosts
+    .filter(list =>  list.userCategory === category)
+    .forEach((list) => {
+        const usCategory = list.userCategory;
+        const usTitle = list.userTitle;
+        const usDate = list.date;
+
+        myGameListElement.innerHTML +=`
+        <div>${usCategory}${usTitle}${usDate}</div>
+        `
+    })
+}
+
 // 게시글 리스트
 const showboardList = (category) => {
     myGameListElement.className = "post_list";
     myGameListElement.innerHTML = "";
     board_post.innerHTML = category;
-    mygameList.innerHTML += `
+    myGameListElement.innerHTML += `
         <div>
         <button id="topBoardBt" class="board_bt">글쓰기</button>
-        <div></div>
+        `;
+    mPost(category);
+        
+    myGameListElement.innerHTML +=`
         <button id="bottomBoardBt" class="board_bt">글쓰기</button>
         </div>
-        `
+        `;
     //글쓰기 화면열기
     document.querySelectorAll(".board_bt").forEach(bt => {
         bt.addEventListener("click", () => {
@@ -46,7 +65,6 @@ const writePost = (category) => {
     myGameListElement.innerHTML += `
             <div>
                 <select id="boardCategory">
-                    <option value="전체게시판">전체게시판</option>
                     <option value="자유게시판">자유게시판</option>
                     <option value="공략/정보">공략/정보</option>
                 </select>
@@ -71,7 +89,12 @@ const writePost = (category) => {
         const userCategory = document.querySelector("#boardCategory").value;
         const userTitle = document.querySelector("#userTitle").value;
         const Content = editor.getHTML();
-        const date = new Date().toISOString();
+        const now = new Date();
+        const date = now.toLocaleDateString("ko-KR", {
+            year: "2-digit",
+            month: "long",
+            day: "2-digit"
+        });
         const userPost = JSON.parse(localStorage.getItem('userPost')) || [];
         //보안을 위한 정규식 이건 많이사용될듯..
         const userContent = Content.replace(/<[^>]*>?/gm, '').trim();
@@ -99,4 +122,4 @@ document.querySelectorAll(".board a").forEach(board => {
         showboardList(board.innerText);
     });
 });
-console.log(getUserPost());
+console.log(mPost());
