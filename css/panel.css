@@ -1,3 +1,6 @@
+ *{
+    box-sizing: border-box;
+}
  .panel {
     position: relative;
     display: block;

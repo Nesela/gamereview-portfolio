@@ -2,6 +2,8 @@ let editor;
 
 const board_post = document.querySelector("#new_post")
 const myGameListElement = document.querySelector("#game-list");
+const day = document.querySelector("#dayck");
+
 
 const createEditor = () => {
     editor = new toastui.Editor({
@@ -11,41 +13,85 @@ const createEditor = () => {
         previewStyle: 'vertical',
         placeholder: '게임 리뷰를 작성하세요'
     });
-}
+};
 
 const getUserPost = () => {
     const data = localStorage.getItem("userPost");
     return data ? JSON.parse(data) : [];
-}
+};
 
+//게시글 보이게하기
 const mPost = (category) => {
     const mainPosts = getUserPost();
-
+    daybt.style.display = "none";
     mainPosts
-    .filter(list =>  list.userCategory === category)
-    .forEach((list) => {
-        const usCategory = list.userCategory;
-        const usTitle = list.userTitle;
-        const usDate = list.date;
+        .filter(list => category === "전체게시판" || list.userCategory === category)
+        .reverse()
+        .forEach((list) => {
 
-        myGameListElement.innerHTML +=`
-        <div>${usCategory}${usTitle}${usDate}</div>
-        `
-    })
-}
+
+            myGameListElement.innerHTML += `
+        <div class="boardMainText post_item" 
+            data-title="${list.userTitle}" 
+            data-content="${list.userContent}"
+            data-date="${list.date}">
+           
+            <span>${list.userCategory}</span>
+            <span class="post_click">${list.userTitle}</span>
+            <span class="post_click">${list.date}</span>
+        </div>
+        `;
+
+
+        });
+    //게시글 상세내용
+    myGameListElement.addEventListener("click", (e) => {
+        //게시글 상세내용 뒤로가기버튼
+        if (e.target.id === "mPostBack") {
+            showboardList(category);
+        };
+
+        const etc = e.target.closest(".post_click");
+        if (!etc) return;
+
+        const clickPost = e.target.closest(".post_item");
+
+        const title = clickPost.dataset.title;
+        const content = clickPost.dataset.content;
+        const date = clickPost.dataset.date;
+
+        myGameListElement.innerHTML = "";
+        myGameListElement.innerHTML += `
+        <button id="mPostBack">뒤로가기</button>
+                <div>
+                    <div>${title}</div>
+                    <div>${date}</div>
+                    <div>${content}</div>
+                </div>
+                `;
+
+    });
+
+};
+
+
 
 // 게시글 리스트
 const showboardList = (category) => {
+
+
     myGameListElement.className = "post_list";
     myGameListElement.innerHTML = "";
     board_post.innerHTML = category;
     myGameListElement.innerHTML += `
-        <div>
+        <div class="board_css">
         <button id="topBoardBt" class="board_bt">글쓰기</button>
+        </div>
         `;
     mPost(category);
-        
-    myGameListElement.innerHTML +=`
+
+    myGameListElement.innerHTML += `
+    <div class="board_css">
         <button id="bottomBoardBt" class="board_bt">글쓰기</button>
         </div>
         `;
@@ -63,16 +109,15 @@ const writePost = (category) => {
     myGameListElement.innerHTML = "";
     board_post.innerHTML = "글쓰기";
     myGameListElement.innerHTML += `
-            <div>
+            <div id="writePost">
                 <select id="boardCategory">
-                    <option value="자유게시판">자유게시판</option>
+                    <option id="allPost" value="자유게시판">자유게시판</option>
                     <option value="공략/정보">공략/정보</option>
                 </select>
                 <input id="userTitle" type="text" placeholder="제목을 입력해 주세요.">
                     <button id="cancelBt">취소</button>
                     <button id="saveBt">등록</button>
                     <div id="editor"></div>
-                
             </div>
             `
     createEditor();
@@ -122,4 +167,3 @@ document.querySelectorAll(".board a").forEach(board => {
         showboardList(board.innerText);
     });
 });
-console.log(mPost());
