@@ -56,7 +56,16 @@ Promise.all(myGame).then(games => {
     });
 });
 
+//별만들기
+const createStars = (rating = 0) => {
+    let stars = '';
+    for (let i = 1; i <= 5; i++) {
+        stars += `<span class="star" data-value="${i}">☆</span>`;
+    }
+    return stars;
+}
 
+//장르별 게임 불러오기
 const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', searchUser = '') => {
     let url = `${BASE_URL}?key=${API_KEY}&page_size=50`;
 
@@ -65,7 +74,6 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
     } else {
         url += `&genres=${genre}&ordering=${ordering}&dates=${firstDay},${lastDay}`
     }
-    console.log('요청 URL:', url);
     fetch(url)
         .then(res => res.json())
         .then(data => {
@@ -77,16 +85,22 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
                 .forEach(game => {
                     mygameList.innerHTML += `
         <div class="gams_post">
-        <div class="img-wrapper">
-        <button class="prevBt imgBt">‹</button>
-        <button class="nextBt imgBt">›</button>
-        ${game.short_screenshots.slice(0, 6).map(ss => `<img src="${ss.image}">`).join('')}
-        </div>
+            <div class="img-wrapper">
+                <button class="prevBt imgBt">‹</button>
+                <button class="nextBt imgBt">›</button>
+                ${game.short_screenshots.slice(0, 6).map(ss => `<img src="${ss.image}">`).join('')}
+            </div>
             
             <div class="post_text">
-            <span>이름 : ${game.name}</span>
-            <span>장르 : ${game.genres.slice(0, 2).map(g => g.name).join(', ')}</span>
-            <span>평점 : ${game.rating}</span>           
+                <span>이름 : ${game.name}</span>
+                <span>장르 : ${game.genres.slice(0, 2).map(g => g.name).join(', ')}</span>
+                <span>평점 : ${game.rating}</span>           
+            </div>
+
+            <div class="userReview">
+                "유저 리뷰쓴거 적힐곳
+                <input type="text" placeholder="리뷰 입력"></input>
+                <div id="starReview" data-game-id="${game.id}">${createStars()}</div>
             </div>
         </div>`;
                 });
@@ -116,6 +130,22 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
             });
         });
 };
+
+//유저별점 클릭 이벤트
+mygameList.addEventListener("click", (e) => {
+
+    if (e.target.classList.contains("star")) {
+        const rating = e.target.dataset.value; 
+        const parent = e.target.parentElement;
+        const stars = parent.querySelectorAll(".star");
+        
+        stars.forEach(clickStar => {
+            const cangeS = clickStar.dataset.value <= rating
+            clickStar.innerHTML = cangeS ? "★" : "☆";
+        })
+    } else {
+    };
+});
 
 //클릭시 변경될 화면
 document.querySelectorAll(".subpanel a").forEach(a => {
