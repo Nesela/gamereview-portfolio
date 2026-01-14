@@ -19,6 +19,7 @@ endDay.value = lastDay;
 
 let currentGenre = '';
 let currentOrdering = '';
+let userReview = JSON.parse(localStorage.getItem("userReview")) || [];
 
 const search = document.querySelector("#main_search");
 
@@ -84,7 +85,7 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
                 .slice(0, 20)  //20개까지 표기
                 .forEach(game => {
                     mygameList.innerHTML += `
-        <div class="gams_post">
+            <div class="gams_post">
             <div class="img-wrapper">
                 <button class="prevBt imgBt">‹</button>
                 <button class="nextBt imgBt">›</button>
@@ -99,10 +100,11 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
 
             <div class="userReview">
                 "유저 리뷰쓴거 적힐곳
-                <input type="text" placeholder="리뷰 입력"></input>
-                <div id="starReview" data-game-id="${game.id}">${createStars()}</div>
+                <input class="reviewInput" type="text" placeholder="리뷰 입력"></input>
+                <div class="starReview" data-game-id="${game.id}">${createStars()}</div>
+                <button class="btReview">리뷰 등록</button>
             </div>
-        </div>`;
+            </div>`;
                 });
             //모든게임의 wrapper를 불러오기
             const gameWrapper = document.querySelectorAll("div > .img-wrapper");
@@ -124,25 +126,42 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
                         //인덱스 계산 (배열 양끝에서 순환)
                         gameImgIndex = (gameImgIndex + imgChange + gameimg.length) % gameimg.length;
                         gameimg[gameImgIndex].style.display = "block";
-                    })
-                })
-
+                    });
+                });
             });
+
+            document.querySelectorAll(".btReview").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const gameBox = e.target.closest(".userReview");
+
+                    const gameId = gameBox.querySelector(".starReview").dataset.gameId;
+                    const reviewText = gameBox.querySelector(".reviewInput").value;
+
+                    const starsCount = gameBox.querySelectorAll(".star");
+                    const reviewRating = Array.from(starsCount).filter(s => s.innerHTML === "★").length;
+
+                    userReview.push({gameId, reviewText, reviewRating})
+                    localStorage.setItem("userReview", JSON.stringify(userReview));
+                })
+            })
         });
 };
+
 
 //유저별점 클릭 이벤트
 mygameList.addEventListener("click", (e) => {
 
     if (e.target.classList.contains("star")) {
-        const rating = e.target.dataset.value; 
+        const rating = e.target.dataset.value;
         const parent = e.target.parentElement;
         const stars = parent.querySelectorAll(".star");
-        
+
         stars.forEach(clickStar => {
             const cangeS = clickStar.dataset.value <= rating
             clickStar.innerHTML = cangeS ? "★" : "☆";
         })
+
+
     } else {
     };
 });

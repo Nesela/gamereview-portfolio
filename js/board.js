@@ -213,27 +213,27 @@ document.querySelectorAll(".board a").forEach(board => {
     });
 });
 
-const makeTodayPosts = () => {
-    const posts = [];
-    const categories = ["자유게시판", "공략/정보"];
+// const makeTodayPosts = () => {
+//     const posts = [];
+//     const categories = ["자유게시판", "공략/정보"];
     
-    // 오늘 날짜 설정 (작성하신 포맷 그대로 적용)
-    const now = new Date();
-    const today = now.toLocaleDateString("ko-KR", {
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric'
-    });
+//     // 오늘 날짜 설정 (작성하신 포맷 그대로 적용)
+//     const now = new Date();
+//     const today = now.toLocaleDateString("ko-KR", {
+//         year: 'numeric', 
+//         month: 'long', 
+//         day: 'numeric'
+//     });
 
-    for (let i = 1; i <= 50; i++) {
-        posts.push({
-            userCategory: categories[Math.floor(Math.random() * categories.length)],
-            userTitle: `작성된 테스트글 ${i}`,
-            userContent: `본문 내용입니다. 번호: ${i}`,
-            date: today // 모두 동일한 오늘 날짜
-        });
-    }
+//     for (let i = 1; i <= 50; i++) {
+//         posts.push({
+//             userCategory: categories[Math.floor(Math.random() * categories.length)],
+//             userTitle: `작성된 테스트글 ${i}`,
+//             userContent: `본문 내용입니다. 번호: ${i}`,
+//             date: today // 모두 동일한 오늘 날짜
+//         });
+//     }
 
-    // 기존 데이터를 지우고 새 데이터 50개 저장
-    localStorage.setItem("userPost", JSON.stringify(posts));
-};
+//     // 기존 데이터를 지우고 새 데이터 50개 저장
+//     localStorage.setItem("userPost", JSON.stringify(posts));
+// };
