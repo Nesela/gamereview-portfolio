@@ -65,6 +65,16 @@ const createStars = (rating = 0) => {
     }
     return stars;
 }
+//유저리뷰 불러오기
+const saveusRiv = () => {
+    const userReview = localStorage.getItem("userReview");
+    return userReview ? JSON.parse(userReview) : [];
+}
+
+const gameUserRiv = () => {
+    const gameReview = saveusRiv();
+    const thisGameReviews = gameReview.filter(review => review.gameId === gameId);
+}
 
 //장르별 게임 불러오기
 const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', searchUser = '') => {
@@ -129,7 +139,7 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
                     });
                 });
             });
-
+            //유저리뷰 저장
             document.querySelectorAll(".btReview").forEach(btn => {
                 btn.addEventListener("click", (e) => {
                     const gameBox = e.target.closest(".userReview");
@@ -140,8 +150,14 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
                     const starsCount = gameBox.querySelectorAll(".star");
                     const reviewRating = Array.from(starsCount).filter(s => s.innerHTML === "★").length;
 
+                    if (!reviewText){
+                        alert("리뷰 내용을 입력해주세요")
+                        return;
+                    }
+
                     userReview.push({gameId, reviewText, reviewRating})
                     localStorage.setItem("userReview", JSON.stringify(userReview));
+                    alert("리뷰가 등록되었습니다!");
                 })
             })
         });
