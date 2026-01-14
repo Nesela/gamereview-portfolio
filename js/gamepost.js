@@ -70,10 +70,23 @@ const saveusRiv = () => {
     const userReview = localStorage.getItem("userReview");
     return userReview ? JSON.parse(userReview) : [];
 }
-
-const gameUserRiv = () => {
+//유저리뷰 보이기
+const gameUserRiv = (gameId) => {
     const gameReview = saveusRiv();
-    const thisGameReviews = gameReview.filter(review => review.gameId === gameId);
+    const thisGameReviews = gameReview.filter(review => String(review.gameId) === String(gameId));
+
+    let reviewHTML = "";
+    thisGameReviews.forEach(review => {
+        const starDisplay = "★".repeat(review.reviewRating) + "☆".repeat(5 - review.reviewRating);
+        reviewHTML += `
+        <div class="reviewItem">
+            <div>${review.reviewText}</div>
+            <div>별점: ${starDisplay}</div>
+        </div>
+        `
+    });
+
+    return reviewHTML;
 }
 
 //장르별 게임 불러오기
@@ -109,10 +122,14 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
             </div>
 
             <div class="userReview">
-                "유저 리뷰쓴거 적힐곳
-                <input class="reviewInput" type="text" placeholder="리뷰 입력"></input>
-                <div class="starReview" data-game-id="${game.id}">${createStars()}</div>
-                <button class="btReview">리뷰 등록</button>
+                <div class="reviews">
+                    ${gameUserRiv(game.id)}
+                </div>
+                <div class="usetInput">
+                    <input class="reviewInput" type="text" placeholder="리뷰 입력"></input>
+                    <div class="starReview" data-game-id="${game.id}">${createStars()}</div>
+                    <button class="btReview">리뷰 등록</button>
+                </div>
             </div>
             </div>`;
                 });
@@ -155,9 +172,10 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
                         return;
                     }
 
-                    userReview.push({gameId, reviewText, reviewRating})
+                    userReview.push({gameId: String(gameId), reviewText, reviewRating})
                     localStorage.setItem("userReview", JSON.stringify(userReview));
                     alert("리뷰가 등록되었습니다!");
+                    location.reload();
                 })
             })
         });
