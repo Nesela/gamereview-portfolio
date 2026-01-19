@@ -80,7 +80,7 @@ const gameUserRiv = (gameId) => {
         const starDisplay = "★".repeat(review.reviewRating) + "☆".repeat(5 - review.reviewRating);
         reviewHTML += `
         <div class="reviewItem">
-            <div>${review.reviewText}</div>
+            <div class="userreviews">${review.reviewText}</div>
             <div>별점: ${starDisplay}</div>
         </div>
         `
