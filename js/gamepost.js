@@ -6,6 +6,8 @@ const baseDate = (date) => {
     return `${year}-${month}-${day}`;
 }
 
+
+
 //날짜
 const today = new Date();
 const oneYearAgo = new Date();
@@ -160,6 +162,8 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
             document.querySelectorAll(".btReview").forEach(btn => {
                 btn.addEventListener("click", (e) => {
                     const gameBox = e.target.closest(".userReview");
+                    const reviewContainer = gameBox.querySelector(".reviews");
+                    const inputField = gameBox.querySelector(".reviewInput");
 
                     const gameId = gameBox.querySelector(".starReview").dataset.gameId;
                     const reviewText = gameBox.querySelector(".reviewInput").value;
@@ -167,15 +171,26 @@ const loadGame = (genre = '', ordering = '', firstDay = '', lastDay = '', search
                     const starsCount = gameBox.querySelectorAll(".star");
                     const reviewRating = Array.from(starsCount).filter(s => s.innerHTML === "★").length;
 
-                    if (!reviewText){
+                    if (!reviewText) {
                         alert("리뷰 내용을 입력해주세요")
                         return;
                     }
 
-                    userReview.push({gameId: String(gameId), reviewText, reviewRating})
+                    userReview.push({ gameId: String(gameId), reviewText, reviewRating })
                     localStorage.setItem("userReview", JSON.stringify(userReview));
+
+                    const starDisplay = "★".repeat(reviewRating) + "☆".repeat(5 - reviewRating);
+                    const newReviewHTML = `
+                    <div class="reviewItem">
+                        <div class="userreviews">${reviewText}</div>
+                        <div>별점: ${starDisplay}</div>
+                    </div>
+                `;
+
+                    reviewContainer.innerHTML += newReviewHTML;
+                    inputField.value = "";
+
                     alert("리뷰가 등록되었습니다!");
-                    location.reload();
                 })
             })
         });
